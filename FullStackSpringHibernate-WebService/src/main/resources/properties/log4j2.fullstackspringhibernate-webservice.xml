@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration name="fullstackspringhibernate-WebService" packages="org.apache.logging.log4j"
+	monitorInterval="999999999" verbose="false" status="WARN">
+
+	<properties>
+		<property name="fullstackspringhibernate.WEB.logging.hostname">localhost</property>
+		<property name="fullstackspringhibernate.WEB.logging.port">28886</property>
+		<property name="fullstackspringhibernate.WEB.logging.appender">commons-logServer</property>
+
+	</properties>
+
+	<appenders>
+		<!-- <Socket name="commons-logServer" host="${fullstackspringhibernate.WEB.logging.hostname}" 
+			port="${fullstackspringhibernate.WEB.logging.port}" protocol="UDP" reconnectionDelay="600000" 
+			suppressExceptions="false" immediateFlush="true"> RFC5424Layout <PatternLayout 
+			pattern="%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %-4p [%X{uow}-%X{requestId}] [%t] 
+			[%c{4}] (%F:%L) : %m %ex{full}"/> </Socket> -->
+
+		<Console name="commons-logServer" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %-4p [%X{uow}-%X{requestId}] [%t] [%c{4}] (%F:%L) : %m %ex{full} %n" />
+		</Console>
+	</appenders>
+	<loggers>
+		<!-- custom entries
+		<logger name="br.com.hhc.samples.fullstackspringhibernate" level="INFO" additivity="false">
+			<appender-ref ref="${fullstackspringhibernate.WEB.logging.appender}" />
+		</logger>
+		<logger name="org.springframework.web" level="INFO" additivity="false">
+			<appender-ref ref="${fullstackspringhibernate.WEB.logging.appender}" />
+		</logger>
+		<logger name="com.fasterxml" level="DEBUG" additivity="false">
+			<appender-ref ref="${fullstackspringhibernate.WEB.logging.appender}" />
+		</logger>
+
+		<logger name="org.hibernate.SQL" level="ALL" additivity="false">
+			<appender-ref ref="${fullstackspringhibernate.WEB.logging.appender}" />
+		</logger>
+
+		<logger name="org.hibernate.type" level="DEBUG" additivity="false">
+			<appender-ref ref="${fullstackspringhibernate.WEB.logging.appender}" />
+		</logger>
+
+		<logger name="org.hibernate.tool.hbm2ddl" level="DEBUG"
+			additivity="false">
+			<appender-ref ref="${fullstackspringhibernate.WEB.logging.appender}" />
+		</logger>
+
+		<logger name="org.hibernate" level="WARN" additivity="false">
+			<appender-ref ref="${fullstackspringhibernate.WEB.logging.appender}" />
+		</logger>
+
+		<logger name="com.googlecode.genericdao.search" level="WARN"
+			additivity="false">
+			<appender-ref ref="${fullstackspringhibernate.WEB.logging.appender}" />
+		</logger>
+		 -->
+		<root level="DEBUG">
+			<appender-ref ref="${fullstackspringhibernate.WEB.logging.appender}" />
+		</root>
+	</loggers>
+</configuration>
+
+
+
+           

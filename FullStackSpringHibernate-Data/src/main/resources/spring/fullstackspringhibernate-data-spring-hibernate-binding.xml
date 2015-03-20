@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<tx:annotation-driven order="1" transaction-manager="transactionManager"/>
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="fullstackspringhibernate-dataSource" />
+		<property name="packagesToScan" value="br.com.hhc.sample.fullstackspringhibernate.database.data.domain" />
+		<property name="namingStrategy">
+			<bean class="org.hibernate.cfg.ImprovedNamingStrategy" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="javax.persistence.validation.mode">none</prop>
+				<!-- changed database ???? replace the Dialect -->
+				<prop key="hibernate.dialect">${app.jdbc.Dialect}</prop>
+				<prop key="hibernate.generate_statistics">true</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">${app.jdbc.checkDDLOnLoad}</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<!--
+				<prop key="hibernate.transaction.jta.platform">org.hibernate.service.jta.platform.internal.SunOneJtaPlatform</prop>
+				
+				<prop key="org.hibernate.transaction.JDBCTransactionFactory">thread</prop> 
+				<prop key="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</prop>-->
+			</props>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.orm.hibernate4.HibernateExceptionTranslator" />
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+	
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+       <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+		  
+</beans>

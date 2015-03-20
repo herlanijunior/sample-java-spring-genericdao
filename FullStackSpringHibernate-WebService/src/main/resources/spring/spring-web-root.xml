@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+                        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+                        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<context:property-placeholder location="classpath*:/properties/*.properties"
+		ignore-resource-not-found="false" ignore-unresolvable="true" />
+
+	<aop:aspectj-autoproxy />
+
+	<context:component-scan base-package="br.com.hhc.sample.fullstackspringhibernate.web.controller" />
+
+	<mvc:annotation-driven>
+	<!-- content-negotiation-manager="contentNegotiationManager" -->
+
+		<mvc:message-converters register-defaults="true">
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper">
+					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+						<property name="serializationInclusion">
+							<value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
+						</property>
+
+					</bean>
+				</property>
+			</bean>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+    			<property name="supportedMediaTypes">    
+    				<value>text/plain;charset=UTF-8</value>
+    			</property>
+    		</bean>			
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	<bean
+		class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+		<property name="extractValueFromSingleKeyModel" value="true" />
+	</bean>
+
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+      <property name="basename" value="version\version"/>
+   </bean>
+   <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+      <property name="templateLoaderPath" value="/WEB-INF/ftl/"/>
+      <property name="preferFileSystemAccess" value="false"/>
+      <property name="freemarkerSettings">
+         <props>
+            <prop key="output_encoding">UTF-8</prop>
+            <prop key="number_format">0.####</prop>
+            <!-- TODO check <prop key="auto_import">spring.ftl as spring</prop> -->
+            <prop key="incompatible_improvements">2.3.21</prop>
+         </props>
+      </property>
+      <property name="freemarkerVariables">
+         <map>
+            <entry key="xml_escape" value-ref="fmXmlEscape"/>
+         </map>
+      </property>
+   </bean>
+   <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
+   <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+      <property name="contentType" value="text/html;charset=UTF-8"/>
+      <property name="cache" value="false"/>
+      <property name="prefix" value=""/>
+      <property name="suffix" value=".ftl"/>
+      <property name="exposeSpringMacroHelpers" value="true"/>
+      <property name="exposeSessionAttributes" value="false"/>
+      <property name="requestContextAttribute" value="rc"/>
+      <!-- <property name="exposeRequestAttributes" value="true" /> -->
+   </bean>
+</beans>

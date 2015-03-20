@@ -1,0 +1,44 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+	
+	<!-- 
+	http://www.mkyong.com/spring-security/spring-security-form-login-example/
+	http://www.mkyong.com/spring-security/spring-security-hello-world-annotation-example/
+	http://www.mkyong.com/spring-security/spring-security-hibernate-annotation-example/
+	 
+ 	<global-method-security secured-annotations="enabled"/>
+ 	<http pattern="/view/login" security="none" />
+ 	-->
+	
+ 	
+	<http auto-config="true" >
+		<intercept-url access="IS_AUTHENTICATED_ANONYMOUSLY"  pattern="/view/login"   />
+		<intercept-url access="ROLE_USER" pattern="/**"   />
+		<form-login 
+		    login-page="/view/login" 
+		    default-target-url="/view/home" 
+			authentication-failure-url="/service/login?error" 
+			username-parameter="username"
+			password-parameter="password" />
+			
+			<logout logout-success-url="/" logout-url="/service/logout" />
+			<!-- 
+		<logout logout-success-url="/service/logout" /> -->
+		<!-- enable csrf protection -->
+		<csrf/>
+	</http>
+ 
+	<authentication-manager>
+		<authentication-provider>
+		  <user-service>
+			<user name="admin" password="admin123" authorities="ROLE_USER" />
+		  </user-service>
+		</authentication-provider>
+	</authentication-manager>
+ 
+</beans:beans>
