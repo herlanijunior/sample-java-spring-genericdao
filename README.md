@@ -1,5 +1,5 @@
 # sample-java-spring-genericdao
-A project sample using Spring 4.1 MVC, Core, Security, Generic DAO over Hibernate 4.
+This a sample sample using Spring 4.1 MVC, Core, Security, Generic DAO over Hibernate 4. The objective is to show a secured MVC application using Spring integrated with Hibernate and abstracting the DAO layer with Generic DAO framework.
 
 
 Tips before running:
