@@ -34,6 +34,7 @@ public abstract class AbstractDataTestSuite extends AbstractTransactionalJUnit4S
 
                 if ( method != null ) {
                     logger.info(String.format("[%1$s] %2$s", fieldName, ReflectionUtils.invokeMethod(method, object)));
+                    System.out.println(String.format("[%1$s] %2$s", fieldName, ReflectionUtils.invokeMethod(method, object)));
                 }
             }
         }
