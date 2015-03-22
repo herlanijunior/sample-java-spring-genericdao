@@ -8,7 +8,6 @@
 	</parent>
 	<artifactId>FullStackSpringHibernate-Demo-Data</artifactId>
 	<dependencies>
-
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derbyclient</artifactId>
@@ -82,9 +81,9 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>c3p0</groupId>
+			<groupId>com.mchange</groupId>
 			<artifactId>c3p0</artifactId>
-			<version>0.8.4.5</version>
+			<version>0.9.5</version>
 		</dependency>
 
 		<dependency>
